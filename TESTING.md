@@ -129,6 +129,8 @@ app/services/__tests__/
 app/store/__tests__/
 ├── wrapStore.test.ts             # Store unit tests
 └── indexingStore.test.ts
+app/components/__tests__/
+└── Footer.test.tsx               # Footer component unit tests
 ```
 
 #### Vitest Tests (Integration/Comprehensive)
@@ -235,6 +237,28 @@ pnpm test:visual -- transaction-signing.spec.ts
 pnpm test:visual -- transaction-signing.spec.ts --headed
 ```
 
+### Run Footer Component Unit Tests (Jest)
+
+The `Footer` component is covered by Jest + React Testing Library in
+`app/components/__tests__/Footer.test.tsx`. The suite asserts the acceptance
+criteria for issue #418:
+
+- **Rendering**: renders the footer landmark, brand/description copy, and every
+  navigation link with the correct accessible name and `href`.
+- **User interactions**: clicking a navigation link invokes the expected
+  navigation handler, and external links expose safe `rel` attributes.
+- **Accessibility**: the footer is exposed as a `contentinfo` landmark, links
+  have discernible names, and decorative icons are hidden from assistive tech.
+- **Theming**: renders correctly under the light and dark theme providers.
+
+```bash
+# Run the Footer unit tests
+pnpm test:unit -- Footer.test.tsx
+
+# Run in watch mode while iterating
+pnpm test:watch -- Footer.test.tsx
+```
+
 ### Generate Coverage Report
 
 Jest generates coverage for unit tests:
@@ -272,52 +296,6 @@ Coverage reports are generated in the `coverage/` directory. Open `coverage/lcov
 
 ```typescript
 // app/services/__tests__/myService.test.ts
-import { myFunction } from '../myService';
+import { myFunc
 
-describe('MyService', () => {
-  beforeEach(() => {
-    // Setup before each test
-    jest.clearAllMocks();
-  });
-
-  describe('myFunction', () => {
-    it('should handle valid input', () => {
-      const result = myFunction('valid');
-      expect(result).toBe('expected');
-    });
-
-    it('should throw on invalid input', () => {
-      expect(() => myFunction(null)).toThrow();
-    });
-  });
-});
-```
-
-### Vitest Test Structure (Integration Tests)
-
-```typescript
-// app/services/__tests__/myService.comprehensive.test.ts
-import { describe, it, expect } from 'vitest';
-import { myService } from '@/app/services/myService';
-
-describe('MyService Comprehensive Tests', () => {
-  it('handles edge case: empty array', () => {
-    const result = myService.process([]);
-    expect(result).toEqual([]);
-  });
-
-  it('handles edge case: large dataset', () => {
-    const largeData = Array.from({ length: 10000 }, (_, i) => i);
-    const result = myService.process(largeData);
-    expect(result.length).toBe(10000);
-  });
-});
-```
-
-### Using Test Utilities
-
-```typescript
-import { createMockTransaction } from '../__tests__/test-utils';
-import { XLM_PAYMENT_TRANSACTIONS } from '../
-
-/* … truncated 5617 chars — edit only what you need near the top … */
+/* … truncated 1268 chars — edit only what you need near the top … */
